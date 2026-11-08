@@ -1,0 +1,182 @@
+[
+  {
+    "id": "VC-01",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze (Vercel handler): fraud text gives a verdict",
+    "input": "",
+    "expected": "HTTP 200, Fraudulent",
+    "actual": "HTTP 200, Fraudulent, 75",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-02",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze rejects GET",
+    "input": "",
+    "expected": "HTTP 405",
+    "actual": "HTTP 405",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-03",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze empty text",
+    "input": "",
+    "expected": "HTTP 400",
+    "actual": "HTTP 400",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-04",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze accepts a body sent as a JSON string",
+    "input": "",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-04b",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze malformed JSON body",
+    "input": "",
+    "expected": "HTTP 400 with a JSON error",
+    "actual": "HTTP 400, {\"error\":\"The request body is not valid JSON.\"}",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-05",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/analyze handles an OPTIONS request",
+    "input": "",
+    "expected": "HTTP 204",
+    "actual": "HTTP 204",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-06",
+    "type": "Integration / Deployment handler",
+    "scenario": "CORS policy of the Vercel handlers",
+    "input": "",
+    "expected": "No \"allow every origin\" header",
+    "actual": "Access-Control-Allow-Origin=undefined",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-06b",
+    "type": "Integration / Deployment handler",
+    "scenario": "Security headers on API responses",
+    "input": "",
+    "expected": "nosniff, X-Frame-Options and a Content-Security-Policy",
+    "actual": "nosniff=nosniff; frame=DENY; csp=true",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-07a",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/auth register (action=register)",
+    "input": "",
+    "expected": "HTTP 201 and a token",
+    "actual": "HTTP 201, token=true",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-07",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/history without sign-in is refused (history is private)",
+    "input": "",
+    "expected": "HTTP 401",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-07b",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/history returns the signed-in user's check, and not the guest check",
+    "input": "",
+    "expected": "own record present, guest record absent",
+    "actual": "HTTP 200; own=true; guest=false",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-08",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/history PATCH ?id= (bookmark toggle, the URL the web app calls)",
+    "input": "",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-09",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/history DELETE ?id=",
+    "input": "",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-10",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/history unsupported method",
+    "input": "",
+    "expected": "HTTP 405",
+    "actual": "HTTP 405",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-11",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/stats",
+    "input": "",
+    "expected": "HTTP 200 with totalScans",
+    "actual": "HTTP 200, totalScans=0",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-12",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/system-status on Vercel",
+    "input": "",
+    "expected": "HTTP 200 operational, environment vercel",
+    "actual": "HTTP 200, env=vercel, storage=/tmp/data (temporary)",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-13",
+    "type": "Integration / Deployment handler",
+    "scenario": "Storage on Vercel is permanent",
+    "input": "",
+    "expected": "Database survives between requests/deploys",
+    "actual": "persistent=false (/tmp/data (temporary)). Vercel files are erased between runs; the system reports this honestly and the sign-in dialog warns users",
+    "status": "FAIL"
+  },
+  {
+    "id": "VC-14",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/export needs sign-in",
+    "input": "",
+    "expected": "guest 401; signed in 200 CSV",
+    "actual": "guest 401; user 200, csv=true",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-15",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/admin access control and seeded admin",
+    "input": "",
+    "expected": "guest 401; student 403; admin 200",
+    "actual": "guest 401; student 403; admin 200 (users=2)",
+    "status": "PASS"
+  },
+  {
+    "id": "VC-16",
+    "type": "Integration / Deployment handler",
+    "scenario": "api/auth me",
+    "input": "",
+    "expected": "HTTP 200 and the user",
+    "actual": "HTTP 200, v@example.com",
+    "status": "PASS"
+  }
+]

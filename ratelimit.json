@@ -1,0 +1,20 @@
+[
+  {
+    "id": "RL-01",
+    "type": "Security / Rate limit",
+    "scenario": "Check requests are limited per minute (set to 5 for this test)",
+    "input": "7 checks in a row",
+    "expected": "First 5 return 200, the rest HTTP 429 with a JSON message",
+    "actual": "codes: 200,200,200,200,200,429,429; message: Too many checks in a short time. Please wait a min",
+    "status": "PASS"
+  },
+  {
+    "id": "RL-02",
+    "type": "Security / Rate limit",
+    "scenario": "New accounts are limited per hour (set to 3 for this test)",
+    "input": "5 sign-ups in a row",
+    "expected": "First 3 return 201, the rest HTTP 429",
+    "actual": "codes: 201,201,201,429,429",
+    "status": "PASS"
+  }
+]

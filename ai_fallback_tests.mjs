@@ -1,0 +1,12 @@
+import fs from 'fs';
+const B='http://localhost:3000';
+const st=await (await fetch(B+'/api/system-status')).json();
+console.log('status: keyConfigured=',st.aiModel.keyConfigured,'mode=',st.aiModel.mode);
+const text='Pay a registration fee of Rs 500 to confirm your internship. Contact on Telegram @fastjobs_hr now.';
+const t0=Date.now();
+const r=await fetch(B+'/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+const j=await r.json();const ms=Date.now()-t0;
+console.log(`AI-UNAVAILABLE: HTTP ${r.status} in ${ms} ms; verdict=${j.finalVerdict?.riskCategory}/${j.finalVerdict?.riskScore}; aiModelEngine.isAvailable=${j.aiModelEngine?.isAvailable}; note="${(j.aiModelEngine?.note||'').slice(0,90)}"`);
+const g=await (await fetch(B+'/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'We are hiring a Software Engineer Intern. Apply on our careers page and attend two interview rounds.'})})).json();
+console.log(`genuine ad with AI unavailable: ${g.finalVerdict?.riskCategory}/${g.finalVerdict?.riskScore}`);
+fs.writeFileSync('tests/results/ai_fallback.json',JSON.stringify({status:r.status,ms,cat:j.finalVerdict?.riskCategory,score:j.finalVerdict?.riskScore,isAvailable:j.aiModelEngine?.isAvailable,note:j.aiModelEngine?.note,keyConfigured:st.aiModel.keyConfigured},null,2));

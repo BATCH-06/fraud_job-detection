@@ -1,0 +1,218 @@
+[
+  {
+    "id": "UT-01",
+    "scenario": "Registration fee demand",
+    "input": "Congratulations! Pay registration fee of Rs 500 to confirm your internship seat today.",
+    "expected": "Fraudulent, FEE_DEMAND flag",
+    "actual": "category=Fraudulent, score=75, flags=[fee-0:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-02",
+    "scenario": "Refundable security deposit",
+    "input": "Your selection is confirmed. A refundable security deposit of 2000 rupees is needed before joining.",
+    "expected": "Fraudulent, FEE_DEMAND flag",
+    "actual": "category=Fraudulent, score=75, flags=[fee-1:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-03",
+    "scenario": "Laptop courier fee",
+    "input": "We will ship your laptop. Please pay the courier charge of 3500 rupees first via UPI.",
+    "expected": "Fraudulent, FEE_DEMAND flag",
+    "actual": "category=Fraudulent, score=75, flags=[fee-3:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-04",
+    "scenario": "Crypto payment request",
+    "input": "To start work, send USDT to our Binance wallet address as a joining guarantee.",
+    "expected": "Fraudulent, SUSPICIOUS_PAYMENT_METHODS flag",
+    "actual": "category=Fraudulent, score=75, flags=[pay-chan-0:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-05",
+    "scenario": "Gift card payment",
+    "input": "Buy two Amazon gift card codes worth 100 dollars and send us the codes to activate your account.",
+    "expected": "Fraudulent, SUSPICIOUS_PAYMENT_METHODS flag",
+    "actual": "category=Fraudulent, score=75, flags=[pay-chan-1:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-06",
+    "scenario": "OTP / banking secret request",
+    "input": "For salary setup please share your net banking password and the OTP you receive on your phone.",
+    "expected": "Fraudulent, SENSITIVE_DATA_HARVESTING flag",
+    "actual": "category=Fraudulent, score=75, flags=[pii-0:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-07",
+    "scenario": "No interview / direct selection",
+    "input": "No interview needed. You are directly selected for the work from home job. Join Monday.",
+    "expected": "At least Suspicious, INTERVIEW_OMISSION flag",
+    "actual": "category=Suspicious, score=22, flags=[no-interview-0:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-08",
+    "scenario": "Telegram-only recruiter",
+    "input": "Our HR will talk to you only on Telegram. Contact on Telegram @jobs_hr_desk to receive tasks.",
+    "expected": "SUSPICIOUS_COMMUNICATION flag raised",
+    "actual": "category=Suspicious, score=22, flags=[tele-redirect-0:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-09",
+    "scenario": "Free email claiming big company",
+    "input": "Google is hiring interns. Send your resume to googlecareers.hr@gmail.com today.",
+    "expected": "Fraudulent (impersonation flag)",
+    "actual": "category=Fraudulent, score=75, flags=[impersonation-gmail.com:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-10",
+    "scenario": "Unrealistic pay: plain number",
+    "input": "Work from home and earn Rs 50000 per day. Only 30 mins work needed, no skills required.",
+    "expected": "At least Suspicious (COMPENSATION_ANOMALY)",
+    "actual": "category=Suspicious, score=44, flags=[comp-0:HIGH | comp-2:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-11",
+    "scenario": "Unrealistic pay: Indian comma format",
+    "input": "Work from home and earn ₹50,000 per day by simple online tasks. No skills required for this job.",
+    "expected": "At least Suspicious (COMPENSATION_ANOMALY)",
+    "actual": "category=Suspicious, score=22, flags=[comp-0:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-12",
+    "scenario": "Guaranteed salary promise",
+    "input": "Guaranteed salary of ₹90,000 per week with no work experience and no interview process at all.",
+    "expected": "At least Suspicious",
+    "actual": "category=Suspicious, score=56, flags=[comp-0:HIGH | comp-4:MEDIUM | no-interview-0:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-13",
+    "scenario": "Urgency pressure",
+    "input": "Reply within 2 hours or the offer expires tonight. Limited seats hurry and confirm your slot.",
+    "expected": "URGENCY_PRESSURE flag raised",
+    "actual": "category=Suspicious, score=24, flags=[urgency-0:MEDIUM | urgency-1:MEDIUM]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-14",
+    "scenario": "ALL CAPS shouting",
+    "input": "URGENT HIRING FOR FRESHERS NO EXPERIENCE NEEDED APPLY NOW WORK FROM HOME GOOD SALARY JOIN TODAY",
+    "expected": "LEXICAL_ANOMALIES flag raised",
+    "actual": "category=Genuine, score=5, flags=[lexical-caps:LOW]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-20",
+    "scenario": "Plain genuine ad (no trigger words)",
+    "input": "We are hiring a Software Engineer Intern. Apply on our careers page. Selected candidates will go through a coding test and two interview ...",
+    "expected": "Genuine, no flags",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-21",
+    "scenario": "Genuine ad containing the word \"together\"",
+    "input": "Our team works together on cloud products. Apply on our careers page and attend two technical interview rounds.",
+    "expected": "Genuine, no flags",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-22",
+    "scenario": "Genuine ad containing \"method\" / \"whether\"",
+    "input": "Please tell us whether you prefer the online method of assessment. Interviews are held on our official campus portal.",
+    "expected": "Genuine, no flags",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-23",
+    "scenario": "Genuine ad containing \"footprint\"",
+    "input": "Our global footprint spans 20 countries. We invite you to our campus hiring drive with a written test and interview.",
+    "expected": "Genuine, no flags",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-24",
+    "scenario": "Genuine anti-scam notice (\"we never ask for a registration fee\")",
+    "input": "Join our internship program. Note: we never ask for any registration fee from candidates. Selection is through a test and interview.",
+    "expected": "Genuine (negation must not trigger fee flag)",
+    "actual": "category=Genuine, score=5, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-25",
+    "scenario": "Genuine message with \"metadata\"",
+    "input": "Please attach your resume metadata and portfolio link on our careers portal. Our HR will schedule an interview with you.",
+    "expected": "No company-impersonation flag and not Fraudulent (a Gmail sender is itself a valid Suspicious signal)",
+    "actual": "category=Suspicious, score=22, flags=[free-webmail-gmail.com:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-25b",
+    "scenario": "Genuine message with \"metadata\" and a free-mail contact in the body",
+    "input": "Please upload the project metadata as part of the task. Send your resume to careers.hr@gmail.com and we will schedule an interview.",
+    "expected": "Not flagged as impersonating a big company (no CRITICAL)",
+    "actual": "category=Suspicious, score=22, flags=[free-webmail-gmail.com:HIGH]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-26",
+    "scenario": "App's own Genuine preset (TCS campus invitation)",
+    "input": "Dear Candidate, Greetings from TCS Talent Acquisition Team. We are pleased to invite you to the TCS Campus Hiring Technical Assessment fo...",
+    "expected": "Genuine (the app labels this preset Genuine)",
+    "actual": "category=Genuine, score=5, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-27",
+    "scenario": "Genuine mail from official company domain",
+    "input": "Dear candidate, your technical interview is scheduled for Monday 10 AM on Microsoft Teams. Please carry your college ID card. Regards, In...",
+    "expected": "Genuine",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-30",
+    "scenario": "Extract email, URL, money, UPI",
+    "input": "Contact hr@acme.com or visit https://acme.com/jobs. Stipend Rs 15000 per month. Pay via UPI to acmepay@okaxis.",
+    "expected": "emails=1, urls=1, upiIds>=1, moneyMentions>=1",
+    "actual": "category=Fraudulent, score=75, flags=[pay-chan-3:CRITICAL]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-31",
+    "scenario": "Score is always within 0-100",
+    "input": "Pay registration fee. Pay security deposit. Send USDT. Gift card. Net banking password. OTP. No interview needed. Telegram only. Within 2...",
+    "expected": "0 <= score <= 100",
+    "actual": "category=Fraudulent, score=98, flags=[fee-0:CRITICAL | fee-1:CRITICAL | fee-2:CRITICAL | fee-3:CRITICAL | pay-chan-0:CRITICAL | pay-chan-1:CRITICAL | tele-redirect-0:HIGH | no-interview-0:HIGH | pii-0:CRITICAL | urgency-0:MEDIUM]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-32",
+    "scenario": "Empty-ish text does not crash",
+    "input": "                    ",
+    "expected": "No crash, Genuine/no flags",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UT-33",
+    "scenario": "Unicode / emoji text does not crash",
+    "input": "🔥🔥 नमस्ते! घर से काम करें और कमाएं ₹5000 रोज़ 💰💰 अभी जुड़ें",
+    "expected": "No crash",
+    "actual": "category=Genuine, score=0, flags=[none]",
+    "status": "PASS"
+  }
+]

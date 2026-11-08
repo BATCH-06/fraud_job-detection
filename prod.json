@@ -1,0 +1,65 @@
+[
+  {
+    "id": "PR-01",
+    "type": "System / Production mode",
+    "scenario": "Production mode (npm start) serves the built website",
+    "input": "GET /",
+    "expected": "HTTP 200 and the built bundle",
+    "actual": "HTTP 200; bundle served=true",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-02",
+    "type": "System / Production mode",
+    "scenario": "Error page does not reveal file paths",
+    "input": "Malformed JSON to /api/analyze",
+    "expected": "No stack trace or path",
+    "actual": "HTTP 400; leaked=false",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-03",
+    "type": "System / Production mode",
+    "scenario": "Error response is JSON",
+    "input": "Malformed JSON to /api/analyze",
+    "expected": "JSON error message",
+    "actual": "HTTP 400; {\"error\":\"The request body is not valid JSON.\"}",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-04",
+    "type": "System / Production mode",
+    "scenario": "X-Powered-By hidden, Content-Security-Policy present",
+    "input": "GET /api/system-status",
+    "expected": "No X-Powered-By; CSP present",
+    "actual": "X-Powered-By=null; CSP=default-src 'self'; script-src 'self'; s...",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-05",
+    "type": "System / Production mode",
+    "scenario": "Unknown API address returns a JSON 404",
+    "input": "GET /api/nonexistent",
+    "expected": "HTTP 404 JSON",
+    "actual": "HTTP 404 application/json; charset=utf-8",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-06",
+    "type": "System / Production mode",
+    "scenario": "Unknown website page falls back to the app (single-page app)",
+    "input": "GET /some/page",
+    "expected": "HTTP 200 index.html",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "PR-07",
+    "type": "System / Production mode",
+    "scenario": "Website itself carries the security policy",
+    "input": "GET /",
+    "expected": "CSP and X-Frame-Options on the HTML page",
+    "actual": "CSP=true; X-Frame-Options=DENY",
+    "status": "PASS"
+  }
+]

@@ -1,0 +1,576 @@
+[
+  {
+    "id": "API-01",
+    "type": "Functional / Classification",
+    "scenario": "Genuine job offer: campus invitation with anti-scam notice (app's own Genuine preset)",
+    "input": "Dear Candidate, Greetings from TCS Talent Acquisition Team. We are pleased to invite you to the TCS Campus ...",
+    "expected": "Genuine",
+    "actual": "HTTP 200, Genuine, score 5",
+    "status": "PASS",
+    "ms": 120,
+    "recordId": "check-1794064705657-0on4s"
+  },
+  {
+    "id": "API-02",
+    "type": "Functional / Classification",
+    "scenario": "Genuine job offer: plain internship ad, no fees, interviews mentioned",
+    "input": "We are hiring a Software Engineer Intern for our Hyderabad office. Apply through the careers page on our of...",
+    "expected": "Genuine",
+    "actual": "HTTP 200, Genuine, score 0",
+    "status": "PASS",
+    "ms": 45,
+    "recordId": "check-1794064705712-vfq4v"
+  },
+  {
+    "id": "API-03",
+    "type": "Functional / Classification",
+    "scenario": "Fake job offer: Telegram video-task scam with refundable deposit",
+    "input": "URGENT HIRING FOR STUDENTS! Work from home using your mobile phone for only 1 to 2 hours daily. Earn ₹45,00...",
+    "expected": "Fraudulent",
+    "actual": "HTTP 200, Fraudulent, score 98",
+    "status": "PASS",
+    "ms": 90,
+    "recordId": "check-1794064705802-az9a9"
+  },
+  {
+    "id": "API-04",
+    "type": "Functional / Classification",
+    "scenario": "Internship scam: laptop courier / registration charge",
+    "input": "Congratulations! You are offered the Full-Stack Web Development Intern position with a monthly stipend of ₹...",
+    "expected": "Fraudulent",
+    "actual": "HTTP 200, Fraudulent, score 82",
+    "status": "PASS",
+    "ms": 9,
+    "recordId": "check-1794064705814-hgc88"
+  },
+  {
+    "id": "API-05",
+    "type": "Functional / Classification",
+    "scenario": "Suspicious offer: rushed deadline + ID document request via free email",
+    "input": "CONGRATULATIONS! You have been selected for the position of Junior Remote Marketing Assistant at Starlight ...",
+    "expected": "Suspicious",
+    "actual": "HTTP 200, Suspicious, score 34",
+    "status": "PASS",
+    "ms": 5,
+    "recordId": "check-1794064705824-h7fmw"
+  },
+  {
+    "id": "API-06",
+    "type": "Functional / Classification",
+    "scenario": "Fake job offer: cryptocurrency staking requirement",
+    "input": "Earn $150 to $300 per day evaluating AI chatbots! No formal degrees needed. Must possess an active Trust Wa...",
+    "expected": "Fraudulent",
+    "actual": "HTTP 200, Fraudulent, score 75",
+    "status": "PASS",
+    "ms": 5,
+    "recordId": "check-1794064705830-pkurz"
+  },
+  {
+    "id": "API-07",
+    "type": "Functional / Classification",
+    "scenario": "Registration fee scam (short message)",
+    "input": "Congratulations, you are selected for the internship. Pay a registration fee of Rs 500 today to confirm you...",
+    "expected": "Fraudulent",
+    "actual": "HTTP 200, Fraudulent, score 75",
+    "status": "PASS",
+    "ms": 3,
+    "recordId": "check-1794064705834-grow6"
+  },
+  {
+    "id": "API-08",
+    "type": "Functional / Classification",
+    "scenario": "Guaranteed salary / unrealistic offer (plain wording)",
+    "input": "Guaranteed salary of Rs 90000 per week. No experience, no interview, no targets. Work 30 minutes daily from...",
+    "expected": "Fraudulent or Suspicious",
+    "actual": "HTTP 200, Fraudulent, score 78",
+    "status": "PASS",
+    "ms": 9,
+    "recordId": "check-1794064705839-22c50"
+  },
+  {
+    "id": "API-09",
+    "type": "Functional / Classification",
+    "scenario": "Unrealistic pay with Indian number format (₹50,000 per day)",
+    "input": "Work from home and earn ₹50,000 per day with simple online tasks. No skills needed, only 1-2 hours work dai...",
+    "expected": "Fraudulent or Suspicious",
+    "actual": "HTTP 200, Suspicious, score 44",
+    "status": "PASS",
+    "ms": 8,
+    "recordId": "check-1794064705848-uf47w"
+  },
+  {
+    "id": "API-10",
+    "type": "Functional / Classification",
+    "scenario": "Internship scam: fake big-company internship + free email + deposit",
+    "input": "Google Summer Internship 2026 selection letter. Send a refundable security deposit of Rs 1500 to googleinte...",
+    "expected": "Fraudulent",
+    "actual": "HTTP 200, Fraudulent, score 75",
+    "status": "PASS",
+    "ms": 7,
+    "recordId": "check-1794064705857-vjdon"
+  },
+  {
+    "id": "API-11",
+    "type": "Functional / Classification",
+    "scenario": "Task scam without any fee: like-and-subscribe style job on WhatsApp",
+    "input": "Earn money by rating products and liking YouTube videos from home. WhatsApp only. Daily payment guaranteed,...",
+    "expected": "Fraudulent or Suspicious",
+    "actual": "HTTP 200, Suspicious, score 66",
+    "status": "PASS",
+    "ms": 6,
+    "recordId": "check-1794064705864-rc9zx"
+  },
+  {
+    "id": "API-12",
+    "type": "Functional / Classification",
+    "scenario": "Single strong red flag: \"no interview needed\" with free email",
+    "input": "No interview needed. You are selected as an Office Assistant for our Hyderabad branch. Send your resume to ...",
+    "expected": "Fraudulent or Suspicious",
+    "actual": "HTTP 200, Suspicious, score 44",
+    "status": "PASS",
+    "ms": 5,
+    "recordId": "check-1794064705870-zdi8a"
+  },
+  {
+    "id": "API-13",
+    "type": "Functional / Classification",
+    "scenario": "Genuine ad that contains ordinary words \"together\" and \"method\"",
+    "input": "Our engineers work together to build cloud products. The selection method includes an online test and two t...",
+    "expected": "Genuine",
+    "actual": "HTTP 200, Genuine, score 0",
+    "status": "PASS",
+    "ms": 6,
+    "recordId": "check-1794064705876-8a2ob"
+  },
+  {
+    "id": "API-14",
+    "type": "Functional / Classification",
+    "scenario": "Genuine ad mentioning \"metadata\" with recruiter free-mail in text",
+    "input": "You will work on metadata pipelines for our analytics team. Interview rounds are conducted on our official ...",
+    "expected": "Genuine or Suspicious (not an impersonation Fraud call)",
+    "actual": "HTTP 200, Suspicious, score 22",
+    "status": "PASS",
+    "ms": 3,
+    "recordId": "check-1794064705881-ywq3f"
+  },
+  {
+    "id": "API-15",
+    "type": "Functional / Classification",
+    "scenario": "Non-English (Hindi) scam text",
+    "input": "घर बैठे रोज ₹5000 कमाएं। पंजीकरण शुल्क 500 रुपये जमा करें और तुरंत नौकरी पाएं। टेलीग्राम पर संपर्क करें।",
+    "expected": "Fraudulent or Suspicious",
+    "actual": "HTTP 200, Fraudulent, score 75",
+    "status": "PASS",
+    "ms": 3,
+    "recordId": "check-1794064705884-69yqa"
+  },
+  {
+    "id": "API-20",
+    "type": "Functional / Output",
+    "scenario": "Response has risk score (0-100), label, explanation (flags with evidence), recommendations",
+    "input": "Fraud ad with metadata",
+    "expected": "All fields present; score in 0-100; label valid; every flag has evidence text",
+    "actual": "missing=[], score=82, label=Fraudulent, flags=3",
+    "status": "PASS"
+  },
+  {
+    "id": "API-21",
+    "type": "Functional / Consistency",
+    "scenario": "Score matches label for all results above (Genuine low, Suspicious mid, Fraudulent high)",
+    "input": "15 results from API-01..15",
+    "expected": "No label/score mismatch",
+    "actual": "No mismatches",
+    "status": "PASS"
+  },
+  {
+    "id": "API-22",
+    "type": "Functional / Consistency",
+    "scenario": "Same input twice gives same verdict (deterministic rule engine)",
+    "input": "FRAUD_1 x2",
+    "expected": "Same label and score",
+    "actual": "HTTP 200, Fraudulent, score 98 | HTTP 200, Fraudulent, score 98",
+    "status": "PASS"
+  },
+  {
+    "id": "API-30",
+    "type": "Validation",
+    "scenario": "Empty input validation (empty string)",
+    "input": "{\"text\":\"\"}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-31",
+    "type": "Validation",
+    "scenario": "Whitespace-only input",
+    "input": "{\"text\":\"          \\n\\n     \"}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-32",
+    "type": "Validation",
+    "scenario": "Missing text field",
+    "input": "{}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-33",
+    "type": "Validation",
+    "scenario": "Text shorter than 20 characters",
+    "input": "{\"text\":\"hello job\"}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"The advertisement text is a bit too short. Please paste at least a couple of ...\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-34",
+    "type": "Validation",
+    "scenario": "Invalid type: text is a number",
+    "input": "{\"text\":12345678901234567000}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-35",
+    "type": "Validation",
+    "scenario": "Invalid type: text is an array",
+    "input": "{\"text\":[\"pay fee\",\"earn money now please\"]}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-36",
+    "type": "Validation",
+    "scenario": "Invalid type: text is an object",
+    "input": "{\"text\":{\"a\":\"b\"}}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-37",
+    "type": "Validation",
+    "scenario": "Invalid type: text is null",
+    "input": "{\"text\":null}",
+    "expected": "HTTP 400 with a readable error message",
+    "actual": "HTTP 400, error=\"Please paste a job advertisement before continuing.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-38",
+    "type": "Validation",
+    "scenario": "Malformed JSON body",
+    "input": "{\"text\": \"broken json",
+    "expected": "HTTP 400 with a JSON error (no stack trace)",
+    "actual": "HTTP 400, body=\"{\"error\":\"The request body is not valid JSON.\"}\"",
+    "status": "PASS",
+    "note": ""
+  },
+  {
+    "id": "API-39",
+    "type": "Validation",
+    "scenario": "Wrong Content-Type (text/plain)",
+    "input": "text/plain body",
+    "expected": "HTTP 400 JSON error",
+    "actual": "HTTP 400, {\"error\":\"Please paste a job advertisement before continuing.\"}",
+    "status": "PASS"
+  },
+  {
+    "id": "API-40",
+    "type": "Validation / Random text",
+    "scenario": "Random gibberish text (not a job ad)",
+    "input": "asdkjh qweoiu zxcmnb ...",
+    "expected": "No crash; must NOT say \"looks like a standard recruitment message\": either a clear \"not a job offer\" message (HTTP 422) or a non-Genuine verdict",
+    "actual": "HTTP 422, This text does not look like a job or internship offer, so we cannot judge it...",
+    "status": "PASS"
+  },
+  {
+    "id": "API-41",
+    "type": "Validation / Random text",
+    "scenario": "Valid-length normal sentence that is not a job offer",
+    "input": "fox / dog sentence",
+    "expected": "Should not be reported as a \"standard recruitment message\": clear \"not a job offer\" message (HTTP 422) or a non-Genuine verdict",
+    "actual": "HTTP 422, This text does not look like a job or internship offer, so we cannot judge it...",
+    "status": "PASS"
+  },
+  {
+    "id": "API-42",
+    "type": "Validation / Long text",
+    "scenario": "Long text input (~5,600 characters)",
+    "input": "5740 chars",
+    "expected": "HTTP 200 and a verdict in under 2 s",
+    "actual": "HTTP 200, Genuine, score 0 in 5 ms",
+    "status": "PASS",
+    "ms": 5
+  },
+  {
+    "id": "API-43",
+    "type": "Validation / Long text",
+    "scenario": "Very long text input (~1 MB)",
+    "input": "1.02 million chars",
+    "expected": "HTTP 200 (or clear size-limit error) in under 5 s",
+    "actual": "HTTP 413, {\"error\":\"The text is too long. Please paste at most 10,000 characters.\"} in 21 ms",
+    "status": "PASS",
+    "ms": 21
+  },
+  {
+    "id": "API-44",
+    "type": "Validation / Long text",
+    "scenario": "Oversized payload (11 MB, above the 10 MB server limit)",
+    "input": "11 MB body",
+    "expected": "HTTP 413 with a friendly JSON error and no internal paths",
+    "actual": "HTTP 413, body=\"{\"error\":\"The request is too large. Please send a shorter text.\"}\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-45",
+    "type": "Validation / Invalid input",
+    "scenario": "Unicode, emoji, Hindi, Telugu and Chinese characters",
+    "input": "multi-script text",
+    "expected": "HTTP 200, no crash",
+    "actual": "HTTP 200, Genuine, score 0",
+    "status": "PASS"
+  },
+  {
+    "id": "API-46",
+    "type": "Validation / Invalid input",
+    "scenario": "Metadata fields sent with wrong types (object, number, array, boolean)",
+    "input": "companyName={a:1}, jobTitle=12345 ...",
+    "expected": "HTTP 200 or HTTP 400; no crash, no \"[object Object]\" saved",
+    "actual": "HTTP 400, {\"error\":\"The \\\"companyName\\\" detail must be plain text.\"}; companyName saved as \"undefined\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-50",
+    "type": "Security / SQL Injection",
+    "scenario": "SQL injection strings in text, company, title, sender and in the history search box",
+    "input": "'; DROP TABLE ...; --  and  ' OR '1'='1",
+    "expected": "Table not dropped; history still works; search does not return all rows",
+    "actual": "analyze HTTP 200; history rows=1; injection-search rows=0",
+    "status": "PASS"
+  },
+  {
+    "id": "API-51",
+    "type": "Security / XSS (server side)",
+    "scenario": "Script / HTML tags in text and metadata are accepted and stored",
+    "input": "<img src=x onerror=alert(1)><script>alert(1)</script>",
+    "expected": "Server may store text but must return it as JSON data only (render-time escaping is checked in the UI test)",
+    "actual": "HTTP 200; companyName echoed as: \"<img src=x onerror=alert(1)><script>alert(1)</script>\"; Content-Type=application/json; charset=utf-8",
+    "status": "PASS"
+  },
+  {
+    "id": "API-52",
+    "type": "Security / Headers",
+    "scenario": "Security response headers (X-Powered-By hidden, CSP, X-Content-Type-Options)",
+    "input": "GET /api/system-status",
+    "expected": "X-Powered-By absent; X-Content-Type-Options and X-Frame-Options present (CSP is production-only, see PR-04)",
+    "actual": "X-Powered-By=null; X-Content-Type-Options=nosniff; X-Frame-Options=DENY",
+    "status": "PASS"
+  },
+  {
+    "id": "API-53",
+    "type": "Security / CORS",
+    "scenario": "CORS policy of the Express server for a foreign Origin",
+    "input": "Origin: https://evil.example",
+    "expected": "Server should not allow arbitrary origins",
+    "actual": "Access-Control-Allow-Origin=null",
+    "status": "PASS"
+  },
+  {
+    "id": "API-54",
+    "type": "Security / Access control",
+    "scenario": "History is private per user: a guest and a different user must not see anyone else's checks",
+    "input": "guest, and a second user, call /api/history",
+    "expected": "Guest gets HTTP 401; second user sees 0 of the first user's records",
+    "actual": "guest HTTP 401; second user sees 0 record(s); direct read of another user's record by id: HTTP 404",
+    "status": "PASS"
+  },
+  {
+    "id": "API-55",
+    "type": "Security / CSV injection",
+    "scenario": "CSV export neutralises spreadsheet formulas in job title / company",
+    "input": "jobTitle='=HYPERLINK(...)'",
+    "expected": "Cell values beginning with = + - @ should be prefixed (e.g. with ')",
+    "actual": "CSV cell: \"check-1794064706210-x0luh\",\"2026-11-07T15:18:26.210Z\",\"'=HYPERLINK(\"\"http://evil.example\"\",\"\"Cli...",
+    "status": "PASS"
+  },
+  {
+    "id": "API-60",
+    "type": "Integration / Database",
+    "scenario": "A completed check is saved and appears in Past History",
+    "input": "POST /api/analyze then GET /api/history",
+    "expected": "Record present with same category, score and flags array",
+    "actual": "found; category=Fraudulent, score=82, flags=3",
+    "status": "PASS"
+  },
+  {
+    "id": "API-61",
+    "type": "Integration / Database",
+    "scenario": "Past History is sorted newest first",
+    "input": "GET /api/history",
+    "expected": "First record is the most recent check",
+    "actual": "first id=check-1794064706225-ushkv (expected check-1794064706225-ushkv)",
+    "status": "PASS"
+  },
+  {
+    "id": "API-62",
+    "type": "Integration / Database",
+    "scenario": "Open a single saved record by ID",
+    "input": "GET /api/history/check-1794064706225-ushkv",
+    "expected": "HTTP 200 with the same record",
+    "actual": "HTTP 200, job_title=HistoryProbe-Alpha",
+    "status": "PASS"
+  },
+  {
+    "id": "API-63",
+    "type": "Integration / Database",
+    "scenario": "Open a record that does not exist",
+    "input": "GET /api/history/does-not-exist-123",
+    "expected": "HTTP 404 with JSON error",
+    "actual": "HTTP 404, {\"error\":\"We could not find this saved record.\"}",
+    "status": "PASS"
+  },
+  {
+    "id": "API-64",
+    "type": "Integration / Database",
+    "scenario": "Search and category filter on Past History",
+    "input": "search=HistoryProbe-Alpha; category=Fraudulent; category=Genuine",
+    "expected": "Search returns the probe record only; filters return only the chosen category",
+    "actual": "search rows=1; fraud-filter rows=5 allFraud=true; genuine-filter rows=0 ok=true",
+    "status": "PASS"
+  },
+  {
+    "id": "API-65",
+    "type": "Integration / Database",
+    "scenario": "Statistics update after a new check",
+    "input": "GET /api/stats before and after one check",
+    "expected": "totalScans increases by 1",
+    "actual": "before=5, after=6, counts={\"Genuine\":1,\"Suspicious\":0,\"Fraudulent\":5}",
+    "status": "PASS"
+  },
+  {
+    "id": "API-66",
+    "type": "Integration / Database",
+    "scenario": "Bookmark (star) toggle using the server route /api/history/:id/star",
+    "input": "PATCH twice",
+    "expected": "Flag flips each time",
+    "actual": "after 1st: 0, after 2nd: 1 (started at 1 because Fraudulent is auto-starred)",
+    "status": "PASS"
+  },
+  {
+    "id": "API-67",
+    "type": "Integration / Frontend-Backend",
+    "scenario": "Bookmark toggle using the URL the web app actually calls (PATCH /api/history?id=...)",
+    "input": "PATCH /api/history?id=check-1794064706225-ushkv",
+    "expected": "HTTP 200 (server is in sync with the browser)",
+    "actual": "HTTP 200, {\"success\":true}",
+    "status": "PASS"
+  },
+  {
+    "id": "API-68",
+    "type": "Integration / Database",
+    "scenario": "Save a record directly through POST /api/history",
+    "input": "valid record JSON",
+    "expected": "HTTP 200 and record retrievable",
+    "actual": "POST HTTP 200; GET HTTP 200, title=ManualInsert",
+    "status": "PASS"
+  },
+  {
+    "id": "API-69",
+    "type": "Integration / Database",
+    "scenario": "Save a record without an ID",
+    "input": "{record:{job_title}}",
+    "expected": "HTTP 400",
+    "actual": "HTTP 400",
+    "status": "PASS"
+  },
+  {
+    "id": "API-70",
+    "type": "Integration / Database",
+    "scenario": "Save a record with an ID that already exists",
+    "input": "POST same id with new data",
+    "expected": "Either update the record or reject with 409; never report success while saving nothing",
+    "actual": "POST HTTP 200 success=true; stored title is still \"UPDATED-TITLE\"",
+    "status": "PASS"
+  },
+  {
+    "id": "API-71",
+    "type": "Validation / Database",
+    "scenario": "Save a record with invalid score (\"abc\") and invalid category",
+    "input": "risk_score='abc', risk_category='<script>'",
+    "expected": "HTTP 400 (invalid data rejected)",
+    "actual": "HTTP 400 success=undefined; record later found: false",
+    "status": "PASS"
+  },
+  {
+    "id": "API-72",
+    "type": "Integration / Database",
+    "scenario": "Delete a record (query form and route form)",
+    "input": "DELETE /api/history?id=  and  DELETE /api/history/:id",
+    "expected": "Both return 200 and the records are gone",
+    "actual": "HTTP 200/200; lookup after delete: 404/404",
+    "status": "PASS"
+  },
+  {
+    "id": "API-73",
+    "type": "Validation / Database",
+    "scenario": "Delete with no ID",
+    "input": "DELETE /api/history",
+    "expected": "HTTP 400",
+    "actual": "HTTP 400",
+    "status": "PASS"
+  },
+  {
+    "id": "API-74",
+    "type": "Functional / Export",
+    "scenario": "Export history as JSON and CSV",
+    "input": "GET /api/export?format=json|csv",
+    "expected": "HTTP 200, correct Content-Type, attachment filename",
+    "actual": "json: 200 application/json; charset=utf-8; csv: 200 text/csv; charset=utf-8; rows=7",
+    "status": "PASS"
+  },
+  {
+    "id": "API-75",
+    "type": "Functional / System status",
+    "scenario": "System status endpoint reports engine state",
+    "input": "GET /api/system-status",
+    "expected": "HTTP 200, status=operational, 8 rule categories, key flag reported",
+    "actual": "HTTP 200, status=operational, rules=8, keyConfigured=false, mode=Basic Rule Checker Active",
+    "status": "PASS"
+  },
+  {
+    "id": "API-76",
+    "type": "Error handling",
+    "scenario": "Unknown API route",
+    "input": "GET /api/nonexistent-endpoint",
+    "expected": "HTTP 404 JSON (not the HTML home page)",
+    "actual": "HTTP 404, content-type=application/json; charset=utf-8, body starts: {\"error\":\"This API address does not e...",
+    "status": "PASS"
+  },
+  {
+    "id": "API-80",
+    "type": "Performance",
+    "scenario": "Average response time over 30 sequential checks (rule engine only)",
+    "input": "30 requests",
+    "expected": "Average < 500 ms",
+    "actual": "avg=4.9 ms, max=9 ms, min=2 ms",
+    "status": "PASS",
+    "ms": 4.9
+  },
+  {
+    "id": "API-81",
+    "type": "Performance / Load",
+    "scenario": "25 simultaneous checks",
+    "input": "25 parallel requests",
+    "expected": "All return 200",
+    "actual": "25/25 returned 200, total 86 ms",
+    "status": "PASS"
+  }
+]

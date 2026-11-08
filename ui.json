@@ -1,0 +1,398 @@
+[
+  {
+    "id": "UI-01",
+    "type": "UI / Website accessibility",
+    "scenario": "Website opens; title and 5 navigation tabs visible",
+    "input": "GET http://localhost:3000",
+    "expected": "Page loads, title set, all tabs shown",
+    "actual": "loaded in 1595 ms; title=\"AI Fake Job & Internship Scam Detection System\"; tabs present: true/true/true/true/true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-02",
+    "type": "UI / Console",
+    "scenario": "No JavaScript errors in the browser console on load",
+    "input": "open home page",
+    "expected": "0 console errors",
+    "actual": "0 error(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-09",
+    "type": "UI / Past History / Privacy",
+    "scenario": "A brand-new visitor (empty browser storage, never ran a check) opens Past History",
+    "input": "fresh browser profile",
+    "expected": "Empty history (\"No Previous Scans Stored\")",
+    "actual": "0 record(s) already listed that this visitor never created",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-03",
+    "type": "UI / Validation",
+    "scenario": "Submit button enabled only when input is valid (empty / <20 chars / ≥20 chars)",
+    "input": "empty, \"too short\", 52-char text",
+    "expected": "disabled, disabled, enabled",
+    "actual": "disabled=true, disabled=true, disabled=false",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-04",
+    "type": "UI / Functional",
+    "scenario": "Character counter updates while typing",
+    "input": "typed 53 characters",
+    "expected": "Shows \"53 chars\"",
+    "actual": "shows \"53 chars\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-05",
+    "type": "UI / Functional",
+    "scenario": "Clear button empties the text box",
+    "input": "click Clear",
+    "expected": "Textarea empty",
+    "actual": "value length=0",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-06",
+    "type": "UI / Functional / Submit",
+    "scenario": "Submit a fake job offer → result page shows High Risk, score and warning signs",
+    "input": "Telegram refundable-deposit scam text",
+    "expected": "High Risk label, score, explanation of warning signs",
+    "actual": "API=Fraudulent/98; page label=\"High Risk\"; warning text shown=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-07",
+    "type": "UI / Functional / Genuine detection",
+    "scenario": "App's own \"Genuine\" example preset (TCS campus invitation) → should show Low Risk",
+    "input": "Example 3 preset (loaded 881 chars)",
+    "expected": "Low Risk (green)",
+    "actual": "API=Genuine/5; page shows \"Low Risk\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-08",
+    "type": "UI / Functional / Genuine detection",
+    "scenario": "Plain genuine job ad → Low Risk",
+    "input": "Software Engineer Intern ad, no fees",
+    "expected": "Low Risk",
+    "actual": "page shows \"Low Risk\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-09b",
+    "type": "UI / Functional",
+    "scenario": "Copy Summary button copies the result text",
+    "input": "click Copy Summary",
+    "expected": "Button shows \"Copied\" and clipboard has text",
+    "actual": "button says Copied=true; clipboard length=220",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-10",
+    "type": "UI / Functional",
+    "scenario": "Print Security Audit opens the printable report",
+    "input": "click button",
+    "expected": "Report modal with \"Print / Save as PDF\"",
+    "actual": "visible=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-11",
+    "type": "UI / Past History",
+    "scenario": "Past History lists the 3 checks just performed",
+    "input": "3 checks done in this browser",
+    "expected": "0+3 records (only the 3 own checks if history is private)",
+    "actual": "3 cards shown; own checks=3",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-12",
+    "type": "UI / Past History",
+    "scenario": "Search box filters records; unmatched search shows \"No previous scans match\"",
+    "input": "search \"Hyderabad\" and \"zzzzqqqq-no-match\"",
+    "expected": "1 match, then empty-state message",
+    "actual": "\"Hyderabad\" → 1 card(s); no-match message visible=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-13",
+    "type": "UI / Past History",
+    "scenario": "Risk-level filter buttons (Low Risk / High Risk / All)",
+    "input": "click Low Risk, High Risk, All",
+    "expected": "Low Risk shows the 2 genuine checks (TCS example and plain ad); High Risk shows the 1 fraud check",
+    "actual": "Low Risk → 2 card(s); High Risk → 1 card(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-14",
+    "type": "UI / Past History",
+    "scenario": "View Result opens the saved result in a window",
+    "input": "click View Result",
+    "expected": "Modal with the saved verdict",
+    "actual": "modal visible=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-15",
+    "type": "UI / Past History",
+    "scenario": "Bookmark button toggles",
+    "input": "click Bookmark on a card",
+    "expected": "Card becomes Bookmarked",
+    "actual": "un-bookmarked cards found=1; bookmarked cards now=2",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-16",
+    "type": "UI / Past History / Export",
+    "scenario": "Export history as CSV and JSON files",
+    "input": "click CSV, click JSON",
+    "expected": "Both files download with data",
+    "actual": "CSV: threat_audit_log_2026-11-08.csv, 3 data rows, header=\"ID,Date Checked,Job Title,Company,Where Received,Risk Level,\"; JSON: threat_audit_log_2026-11-08.json, 3 records",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-17",
+    "type": "UI / Past History / Persistence",
+    "scenario": "History survives a page refresh",
+    "input": "reload the page",
+    "expected": "Same records after reload",
+    "actual": "before=3, after=3, saved in browser storage=3",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-18",
+    "type": "UI / Past History",
+    "scenario": "Delete one record (with confirmation)",
+    "input": "click Delete, accept confirm",
+    "expected": "One fewer card, also removed on server",
+    "actual": "cards 3 → 2; records on server now=n/a (a guest's history is only in the browser)",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-20",
+    "type": "UI / Past History",
+    "scenario": "Clear All removes the user's history",
+    "input": "click Clear All, accept confirm",
+    "expected": "Empty-state shown",
+    "actual": "empty-state visible=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-21",
+    "type": "UI / Security / Data isolation",
+    "scenario": "Clear All by one visitor must not delete other users' saved data",
+    "input": "guest clicks Clear All while another user has a saved check on the server",
+    "expected": "The other user's check is still there",
+    "actual": "other user's server records: 1 before, 1 after",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-22",
+    "type": "UI / Navigation",
+    "scenario": "Threat Intel and System Info tabs open with content",
+    "input": "click both tabs",
+    "expected": "Both show content, no crash",
+    "actual": "Threat Intel text length=2703; System Info text length=1600",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-23",
+    "type": "UI / Accessibility",
+    "scenario": "Basic accessibility: page language and a label for the main text box (Home page)",
+    "input": "inspect DOM",
+    "expected": "lang attribute set; textarea has label or aria-label",
+    "actual": "lang=\"en\"; textarea labels=0, aria-label=Job offer text",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-24",
+    "type": "UI / Security / XSS",
+    "scenario": "HTML/script in text and company name is shown as plain text, never executed",
+    "input": "<img src=x onerror=alert(1)><script>alert(2)</script>",
+    "expected": "No alert dialog, no injected <img>, text visible as text",
+    "actual": "alerts fired=0; injected <img> elements=0; literal text visible=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-25",
+    "type": "UI / Security / XSS",
+    "scenario": "Same payload is safe when shown again in Past History",
+    "input": "open Past History",
+    "expected": "No alert, no injected element",
+    "actual": "alerts fired=0; injected <img>=0",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-35",
+    "type": "UI / Accounts / Validation",
+    "scenario": "Sign-up form shows clear messages for a bad email and a short password",
+    "input": "email \"not-an-email\"; password \"short\"",
+    "expected": "Two readable error messages, dialog stays open",
+    "actual": "email: \"Please enter a valid email address.\"; password: \"Password must be at least 8 characters.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-30",
+    "type": "UI / Accounts",
+    "scenario": "Register: the dialog closes and the header shows the name and Sign out",
+    "input": "Test Student / password123",
+    "expected": "Avatar with the user's name (on hover), Sign out available, dialog closed",
+    "actual": "header: \"T Sign out\"; avatar title=\"Test Student (ui-student-1794110864783@example.com)\"; dialog open=false",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-31",
+    "type": "UI / Accounts / History",
+    "scenario": "A check made while signed in appears in Past History and is saved to the account on the server",
+    "input": "one fraud check",
+    "expected": "1 card; 1 record on the server for this user",
+    "actual": "cards=1; server records=1",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-31b",
+    "type": "UI / Accounts / History",
+    "scenario": "History badge says it is saved to the account",
+    "input": "open Past History",
+    "expected": "\"Your Account + This Browser\"",
+    "actual": "badge shown",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-32",
+    "type": "UI / Accounts / Session",
+    "scenario": "Signed-in state and history survive a page reload",
+    "input": "reload",
+    "expected": "Still signed in; still 1 card",
+    "actual": "header: \"T Sign out\"; cards=1",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-33",
+    "type": "UI / Accounts / Privacy",
+    "scenario": "After Sign out, the account's history is no longer shown in the browser",
+    "input": "click Sign out, open Past History",
+    "expected": "0 cards; Sign in / Register shown again",
+    "actual": "cards=0; header=\"Sign in Register\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-34",
+    "type": "UI / Accounts / Privacy",
+    "scenario": "A second person using the same browser does not see the first person's history",
+    "input": "register another account in the same browser",
+    "expected": "0 cards",
+    "actual": "cards=0",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-36",
+    "type": "UI / Accounts",
+    "scenario": "Wrong password shows an error; the right password signs in and the history is back",
+    "input": "wrong then right password",
+    "expected": "Error \"Incorrect email or password\"; then 1 card",
+    "actual": "message=\"Incorrect email or password.\"; dialog stayed open=true; cards after sign-in=1",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-38",
+    "type": "UI / Validation",
+    "scenario": "Text that is not a job offer shows a clear message and no result",
+    "input": "fox sentence",
+    "expected": "Message \"does not look like a job or internship offer\"; no result page",
+    "actual": "message shown=true; stayed on form=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-37",
+    "type": "UI / Company verification",
+    "scenario": "Salary and Website fields exist; a look-alike company domain shows a Suspicious company verdict with the reasons",
+    "input": "Infosys + hr@infosys-careers.com + www.infosys-careers.com",
+    "expected": "Fields present; card shows \"Suspicious Company Details\"; overall High Risk; salary and website sent to the server",
+    "actual": "fields: salary=1, website=1; verdict=\"Suspicious Company Details\"; overall=Fraudulent; sent salary=\"Rs 4,00,000 per year\" website=\"www.infosys-careers.com\"; reason shown=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-39a",
+    "type": "UI / Admin / Access",
+    "scenario": "A student does not see the Admin tab",
+    "input": "signed in as student",
+    "expected": "No Admin tab",
+    "actual": "Admin tabs visible=0",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-39",
+    "type": "UI / Admin / Access",
+    "scenario": "Administrator sees the Admin tab after signing in",
+    "input": "sign in as admin",
+    "expected": "Admin tab visible, ADMIN badge shown",
+    "actual": "Admin tab=1; header=\"A Sign out\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-40",
+    "type": "UI / Admin / Overview",
+    "scenario": "Admin overview shows totals",
+    "input": "open Admin",
+    "expected": "Total checks and users are numbers > 0",
+    "actual": "checks=7; users=4",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-41",
+    "type": "UI / Admin / Monitor results",
+    "scenario": "Monitor Results lists everyone's checks (guests and users) with the owner",
+    "input": "open Monitor Results",
+    "expected": "Rows listed; \"Guest\" and an e-mail owner both appear",
+    "actual": "rows=7; guest shown=true; user email shown=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-42",
+    "type": "UI / Admin / Manage users",
+    "scenario": "Manage Users lists accounts; the admin's own row cannot be deleted",
+    "input": "open Manage Users",
+    "expected": "Students listed; own Delete button disabled",
+    "actual": "student listed=true; own delete disabled=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-43",
+    "type": "UI / Admin / Manage dataset",
+    "scenario": "Add labelled examples, run the evaluation, export CSV",
+    "input": "add 2 examples; evaluate; CSV",
+    "expected": "2+ rows; \"Correct: x of y\"; CSV file with the data",
+    "actual": "rows=2; evaluation=\"Evaluation result  Rule-based engine only (no AI call is made)  Correct: 2 of 2 (100%)  Ex\"; csv ok=true",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-26",
+    "type": "UI / Functional",
+    "scenario": "Loading indicator shown and double-click does not send two requests",
+    "input": "click submit twice during a slow (1.8 s) response",
+    "expected": "Spinner text, button disabled, exactly 1 request",
+    "actual": "button text=\"Analyzing Security Threat...\"; disabled=true; analyze requests=1",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-27",
+    "type": "UI / Error handling",
+    "scenario": "Backend completely unreachable → built-in rule checker still gives a result and saves it",
+    "input": "all /api calls blocked",
+    "expected": "Result shown (High Risk) and stored in Past History",
+    "actual": "result shown=true; label=\"High Risk\"; history cards=1",
+    "status": "PASS"
+  },
+  {
+    "id": "UI-28",
+    "type": "UI / Responsive",
+    "scenario": "Mobile screen (375×812): no sideways scrolling; check works",
+    "input": "phone viewport",
+    "expected": "No horizontal overflow; result displayed",
+    "actual": "home scrollWidth=375/375; result scrollWidth=375/375; result shown=true",
+    "status": "PASS"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "PF-02",
+    "type": "Performance",
+    "scenario": "Long input without spaces (regex stress)",
+    "input": "9,900 (largest accepted) / 20,000 / 80,000 characters of \"a\" and of \"1\"",
+    "expected": "Each request answered in under 2 s",
+    "actual": "letters 9900: HTTP 200 159 ms; letters 20000: HTTP 413 45 ms; letters 80000: HTTP 413 11 ms; digits 9900: HTTP 200 41 ms; digits 20000: HTTP 413 8 ms; digits 80000: HTTP 413 7 ms",
+    "status": "PASS"
+  },
+  {
+    "id": "PF-03",
+    "type": "Performance",
+    "scenario": "Server stays responsive during a heavy request",
+    "input": "10,000-character check, then a status ping 50 ms later",
+    "expected": "Ping answered in under 1 s",
+    "actual": "heavy 29 ms; ping 3 ms (HTTP 200)",
+    "status": "PASS"
+  }
+]

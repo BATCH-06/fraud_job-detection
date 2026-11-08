@@ -1,0 +1,443 @@
+[
+  {
+    "id": "AU-01",
+    "type": "Accounts / Register",
+    "scenario": "Register a new student account",
+    "input": "name, email, password (8+ chars)",
+    "expected": "HTTP 201, token, role student, no password in reply",
+    "actual": "HTTP 201, role=student, token=true, password in reply=false",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-02",
+    "type": "Accounts / Register",
+    "scenario": "Same email again (different upper/lower case)",
+    "input": "ALICE-1794110637367@EXAMPLE.COM",
+    "expected": "HTTP 409",
+    "actual": "HTTP 409: An account with this email already exists. Please sign in.",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-03",
+    "type": "Accounts / Validation",
+    "scenario": "Invalid email address",
+    "input": "{\"name\":\"Bob\",\"email\":\"not-an-email\",\"password\":\"password123\"}",
+    "expected": "HTTP 400 with a clear message",
+    "actual": "HTTP 400: Please enter a valid email address.",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-04",
+    "type": "Accounts / Validation",
+    "scenario": "Password shorter than 8 characters",
+    "input": "{\"name\":\"Bob\",\"email\":\"bob-1794110637367@example.com\",\"password\":\"shor",
+    "expected": "HTTP 400 with a clear message",
+    "actual": "HTTP 400: Password must be 8 to 128 characters long.",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-05",
+    "type": "Accounts / Validation",
+    "scenario": "Missing name",
+    "input": "{\"email\":\"bob2-1794110637367@example.com\",\"password\":\"password123\"}",
+    "expected": "HTTP 400 with a clear message",
+    "actual": "HTTP 400: Please enter your name (2 to 60 characters).",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-05b",
+    "type": "Accounts / Validation",
+    "scenario": "Password is a number, not text",
+    "input": "{\"name\":\"Bob\",\"email\":\"bob3-1794110637367@example.com\",\"password\":1234",
+    "expected": "HTTP 400 with a clear message",
+    "actual": "HTTP 400: Password must be 8 to 128 characters long.",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-06",
+    "type": "Accounts / Login",
+    "scenario": "Login with the right password",
+    "input": "alice-1794110637367@example.com",
+    "expected": "HTTP 200 and a token",
+    "actual": "HTTP 200, token=true",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-07",
+    "type": "Accounts / Login",
+    "scenario": "Wrong password and unknown email give the same answer (no account guessing)",
+    "input": "wrong password / unknown email",
+    "expected": "Both HTTP 401 with identical message",
+    "actual": "401 \"Incorrect email or password.\" vs 401 \"Incorrect email or password.\"",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-09",
+    "type": "Accounts / Session",
+    "scenario": "Token identifies the user",
+    "input": "GET /api/auth?action=me",
+    "expected": "HTTP 200 and the user",
+    "actual": "HTTP 200, email=alice-1794110637367@example.com",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-10",
+    "type": "Accounts / Session",
+    "scenario": "No token",
+    "input": "GET me without token",
+    "expected": "HTTP 401",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-11",
+    "type": "Accounts / Security",
+    "scenario": "Token edited to say role=admin",
+    "input": "payload changed, signature kept",
+    "expected": "HTTP 401 (signature check fails)",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-12",
+    "type": "Accounts / Security",
+    "scenario": "Expired token",
+    "input": "validly signed, exp in the past",
+    "expected": "HTTP 401",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-12b",
+    "type": "Accounts / Security",
+    "scenario": "Token signed with the wrong secret",
+    "input": "forged token",
+    "expected": "HTTP 401",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-13",
+    "type": "Accounts / Security",
+    "scenario": "Password is stored hashed (scrypt), never as plain text",
+    "input": "read users table from the database file",
+    "expected": "hash starts with scrypt$ and does not contain the password",
+    "actual": "stored=\"scrypt$b8b932e05897d47c8...\"",
+    "status": "PASS"
+  },
+  {
+    "id": "AU-14",
+    "type": "Accounts / Security",
+    "scenario": "Repeated wrong passwords are slowed down",
+    "input": "9 wrong logins in a row",
+    "expected": "HTTP 429 on the 9th attempt",
+    "actual": "last HTTP 429",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-01",
+    "type": "Privacy / History",
+    "scenario": "Another user cannot list Alice's checks",
+    "input": "Bob calls GET /api/history",
+    "expected": "Bob's list has none of Alice's records",
+    "actual": "Bob sees 0 record(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-02",
+    "type": "Privacy / History",
+    "scenario": "Bob cannot read, delete or bookmark Alice's record by its id",
+    "input": "GET / DELETE / PATCH with Alice's record id",
+    "expected": "All HTTP 404; the record still exists for Alice",
+    "actual": "Bob: 404/404/404; Alice can still read it: HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-03",
+    "type": "Privacy / History",
+    "scenario": "Bob cannot overwrite Alice's record by posting the same id",
+    "input": "POST same id as Bob",
+    "expected": "HTTP 409 and Alice's title unchanged",
+    "actual": "HTTP 409; Alice's title=\"Alice-Private-Offer\"",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-04",
+    "type": "Privacy / History",
+    "scenario": "Bob's \"Clear All\" does not delete Alice's checks",
+    "input": "Bob: DELETE clearAll",
+    "expected": "Alice still has her record",
+    "actual": "Bob HTTP 200; Alice still has 1 record(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-05",
+    "type": "Privacy / History",
+    "scenario": "A guest's check is not shown in any user's history",
+    "input": "guest analyze, then Alice lists history",
+    "expected": "Guest record id absent from Alice's list",
+    "actual": "guest HTTP 200; in Alice's list: false",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-06",
+    "type": "Privacy / History",
+    "scenario": "Statistics are per user (guest sees zeros)",
+    "input": "GET /api/stats as Bob and as guest",
+    "expected": "Guest total 0",
+    "actual": "Bob total 0; guest total 0",
+    "status": "PASS"
+  },
+  {
+    "id": "HI-07",
+    "type": "Privacy / History",
+    "scenario": "Export needs sign-in",
+    "input": "GET /api/export as guest",
+    "expected": "HTTP 401",
+    "actual": "HTTP 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-03",
+    "type": "Admin / Login",
+    "scenario": "Seeded administrator (from ADMIN_EMAIL / ADMIN_PASSWORD) can sign in",
+    "input": "admin@test.local",
+    "expected": "HTTP 200, role admin",
+    "actual": "HTTP 200, role=admin",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-01",
+    "type": "Admin / Access control",
+    "scenario": "Student gets 403 and guest gets 401 on every admin resource",
+    "input": "overview, results, users, dataset, dataset-export",
+    "expected": "student 403, guest 401 for all",
+    "actual": "overview:403/401 results:403/401 users:403/401 dataset:403/401 dataset-export:403/401",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-04",
+    "type": "Admin / Monitor",
+    "scenario": "Overview shows totals",
+    "input": "GET overview as admin",
+    "expected": "HTTP 200 with totals, users >= 3",
+    "actual": "HTTP 200, total=2, users=3, guest=1, dataset=0",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-05",
+    "type": "Admin / Monitor",
+    "scenario": "Admin sees every user's and guest's results with the owner's email",
+    "input": "GET results as admin",
+    "expected": "Alice's record with her email, and at least one guest record",
+    "actual": "HTTP 200, 2 records; Alice's owner=alice-1794110637367@example.com; guest row=true",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-18",
+    "type": "Admin / Monitor",
+    "scenario": "Admin filters: result type and search",
+    "input": "category=Genuine; search=Alice-Private-Offer",
+    "expected": "Only Genuine rows; exactly Alice's row",
+    "actual": "Genuine rows 1 all genuine=true; search rows 1",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-06",
+    "type": "Admin / Dataset",
+    "scenario": "Review a monitored result and add it to the dataset with a confirmed label",
+    "input": "label Alice's record Fraudulent; bad label; unknown id",
+    "expected": "201; 400; 404",
+    "actual": "201; 400; 404",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-07",
+    "type": "Admin / Dataset",
+    "scenario": "Dataset input is validated",
+    "input": "short text; bad label; valid",
+    "expected": "400; 400; 201",
+    "actual": "400; 400; 201",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-08",
+    "type": "Admin / Dataset",
+    "scenario": "Add then delete a dataset item",
+    "input": "POST, DELETE, DELETE again",
+    "expected": "List grows by 1 then returns; second delete 404",
+    "actual": "before 2, after 2; delete 200; delete again 404",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-09",
+    "type": "Admin / Dataset",
+    "scenario": "Dataset export (CSV and JSON); spreadsheet formulas are neutralised",
+    "input": "GET dataset-export csv / json",
+    "expected": "CSV with attachment header, formula cell starts with an apostrophe; JSON array",
+    "actual": "csv 200 text/csv; charset=utf-8; formula neutralised=true; json 200",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-10",
+    "type": "Admin / Dataset",
+    "scenario": "Evaluating the detection rules on the dataset gives honest numbers",
+    "input": "add 2 right + 2 deliberately wrong items; evaluate",
+    "expected": "total +4, correct +2, matrix adds up to total, accuracy = correct/total",
+    "actual": "before 3/3; after 5/7 (71.4%), matrix sum 7",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-11",
+    "type": "Admin / Users",
+    "scenario": "User list never exposes password hashes and shows check counts",
+    "input": "GET users",
+    "expected": "No password fields; Alice has >= 1 check",
+    "actual": "HTTP 200; users=3; password fields=false; Alice scans=1",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-12",
+    "type": "Admin / Users",
+    "scenario": "Promote a student to admin and back (takes effect immediately)",
+    "input": "PATCH role",
+    "expected": "student 403 -> admin 200 -> student 403",
+    "actual": "403 -> 200/200 -> 200/403",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-13",
+    "type": "Admin / Users",
+    "scenario": "Admin cannot disable or delete their own account (no lock-out)",
+    "input": "PATCH / DELETE own id",
+    "expected": "HTTP 400 both",
+    "actual": "400 / 400",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-15",
+    "type": "Admin / Users",
+    "scenario": "Disabling an account blocks login and any existing token; enabling restores it",
+    "input": "disable, login, old token, enable, login",
+    "expected": "login 403, old token 401, then login 200",
+    "actual": "disable 200; login 403; old token 401; enable 200; login 200",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-16",
+    "type": "Admin / Users",
+    "scenario": "Deleting a user also removes their saved checks and their login",
+    "input": "DELETE user",
+    "expected": "checks gone, login 401",
+    "actual": "delete 200; Erin's records left=0; login 401",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-17",
+    "type": "Admin / Validation",
+    "scenario": "Invalid admin requests are rejected",
+    "input": "role 'root'; unknown user; empty body",
+    "expected": "400; 404; 400",
+    "actual": "400; 404; 400",
+    "status": "PASS"
+  },
+  {
+    "id": "AD-19",
+    "type": "Admin / Validation",
+    "scenario": "Unknown admin resource",
+    "input": "resource=nothing",
+    "expected": "HTTP 404 JSON",
+    "actual": "HTTP 404",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-H1",
+    "type": "Company verification / API",
+    "scenario": "Look-alike company e-mail domain in a job offer",
+    "input": "hr@infosys-careers.com",
+    "expected": "Company verdict Suspicious and overall Fraudulent",
+    "actual": "HTTP 200; verification=Suspicious; overall=Fraudulent/75",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-H2",
+    "type": "Company verification / API",
+    "scenario": "Official company e-mail and website",
+    "input": "tcs.com domains",
+    "expected": "Company verdict Verified and overall Genuine",
+    "actual": "HTTP 200; verification=Verified; overall=Genuine/0",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-H3",
+    "type": "Company verification / API",
+    "scenario": "Salary and website fields are accepted, checked and saved",
+    "input": "salary + website in the request",
+    "expected": "Saved record has salary and website; verification has a website check; mismatch flag raised",
+    "actual": "HTTP 200; saved salary=\"Rs 15,000 per month\", website=\"www.freejobs-today.com\"; flags=company-namemismatch-freejobs-today.com",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-H4",
+    "type": "Company verification / API",
+    "scenario": "Every response includes a complete verification object",
+    "input": "plain genuine text",
+    "expected": "verdict, summary, checks[], flags[], checkedDomains[], onlineChecks",
+    "actual": "keys=verdict,summary,checks,flags,checkedDomains,onlineChecks",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-H5",
+    "type": "Company verification / API",
+    "scenario": "System status reports company verification and accounts",
+    "input": "GET system-status",
+    "expected": "companyVerification Active; accounts enabled; persistent storage true (local)",
+    "actual": "cv=Active; accounts=true; admin=true; persistent=true",
+    "status": "PASS"
+  },
+  {
+    "id": "PL-01",
+    "type": "Validation / Limits",
+    "scenario": "Text above 10,000 characters",
+    "input": "10,500 characters",
+    "expected": "HTTP 413 with a clear message",
+    "actual": "HTTP 413: The text is too long. Please paste at most 10,000 characters.",
+    "status": "PASS"
+  },
+  {
+    "id": "PL-02",
+    "type": "Validation / Limits",
+    "scenario": "Text of exactly 10,000 characters is accepted quickly",
+    "input": "10,000 characters",
+    "expected": "HTTP 200 in under 1 s",
+    "actual": "HTTP 200 in 8 ms",
+    "status": "PASS"
+  },
+  {
+    "id": "PL-03",
+    "type": "Validation / Limits",
+    "scenario": "Extra blank spaces are cleaned before the length check",
+    "input": "normal text + 15,000 spaces",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "id": "PL-04",
+    "type": "Validation / Limits",
+    "scenario": "Optional detail that is too long",
+    "input": "companyName of 300 characters",
+    "expected": "HTTP 400 with a clear message",
+    "actual": "HTTP 400: The \"companyName\" detail is too long (maximum 200 characters).",
+    "status": "PASS"
+  },
+  {
+    "id": "PL-05",
+    "type": "Validation / Limits",
+    "scenario": "Text under 20 letters is rejected with a friendly message",
+    "input": "\"Pay fee now\" (11 characters)",
+    "expected": "HTTP 400",
+    "actual": "HTTP 400",
+    "status": "PASS"
+  }
+]

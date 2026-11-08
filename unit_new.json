@@ -1,0 +1,450 @@
+[
+  {
+    "id": "UN-01",
+    "scenario": "Scam says \"no experience needed\" right before the fee demand",
+    "input": "No experience needed. Pay a registration fee of Rs 500 today to confirm your internship.",
+    "expected": "Fraudulent (fee flag)",
+    "actual": "Fraudulent/75 flags=[fee-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-02",
+    "scenario": "\"No interview, no experience, just pay\" must not cancel the fee flag",
+    "input": "Work from home job. No interview, no experience, just pay a registration fee of 999 rupees now.",
+    "expected": "Fee flag present",
+    "actual": "Fraudulent/75 flags=[fee-0 | no-interview-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-03",
+    "scenario": "Fake disclaimer followed by \"but\" and a real demand",
+    "input": "We never ask for fees elsewhere, but for this internship you must pay a registration fee of Rs 1000.",
+    "expected": "Fee flag present",
+    "actual": "Fraudulent/75 flags=[fee-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-04",
+    "scenario": "Fake disclaimer in one sentence, demand in the next",
+    "input": "We do not charge any fee from candidates. Pay a security deposit of Rs 2000 to receive your laptop.",
+    "expected": "Deposit flag present (new sentence)",
+    "actual": "Fraudulent/75 flags=[fee-1]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-05",
+    "scenario": "Zero-width characters hidden inside \"registration\"",
+    "input": "Pay the regi​stra​tion fee of Rs 500 to confirm your internship seat.",
+    "expected": "Fee flag present",
+    "actual": "Fraudulent/75 flags=[fee-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-06",
+    "scenario": "Look-alike Cyrillic letters in \"Google\" with a Gmail contact",
+    "input": "Gооgle is hiring interns. Send your resume to hr.team@gmail.com for the interview.",
+    "expected": "Impersonation flag (CRITICAL)",
+    "actual": "Fraudulent/75 flags=[impersonation-gmail.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-07",
+    "scenario": "Hindi registration-fee demand",
+    "input": "इंटर्नशिप के लिए पंजीकरण शुल्क 500 रुपये जमा करें और तुरंत नौकरी पाएं।",
+    "expected": "Fee flag present",
+    "actual": "Fraudulent/75 flags=[fee-6]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-08",
+    "scenario": "Telugu registration-fee demand",
+    "input": "ఉద్యోగం కోసం రిజిస్ట్రేషన్ ఫీజు 500 రూపాయలు చెల్లించండి.",
+    "expected": "Fee flag present",
+    "actual": "Fraudulent/75 flags=[fee-8]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-09",
+    "scenario": "Pay ₹1,50,000 per week (lakh format)",
+    "input": "Earn ₹1,50,000 per week from home. Apply now for this job.",
+    "expected": "Unrealistic-pay flag",
+    "actual": "Suspicious/22 flags=[comp-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-10",
+    "scenario": "Pay \"60000 rupees weekly\" (number before currency word)",
+    "input": "Earn 60000 rupees weekly doing simple online video reviews. Job open for all.",
+    "expected": "Unrealistic-pay flag",
+    "actual": "Suspicious/22 flags=[comp-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-11",
+    "scenario": "Crypto stake demand",
+    "input": "You must stake 50 USDT in your wallet as a guarantee before starting this job.",
+    "expected": "Crypto payment flag (CRITICAL)",
+    "actual": "Fraudulent/75 flags=[pay-chan-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-20",
+    "scenario": "Blockchain company mentions Ethereum / Bitcoin as skills",
+    "input": "We are hiring a Solidity intern. Knowledge of Ethereum and Bitcoin is a plus. Apply on our careers page; two interview rounds.",
+    "expected": "No crypto-payment flag",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-21",
+    "scenario": "\"Data entry operator\" job ad",
+    "input": "Hiring a data entry operator for our Hyderabad office. Apply with your resume. Interview on Monday.",
+    "expected": "Genuine",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-22",
+    "scenario": "Low realistic stipend per day",
+    "input": "Internship stipend of ₹500 per day for selected candidates. Apply on our careers page; interviews next week.",
+    "expected": "No unrealistic-pay flag",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-23",
+    "scenario": "Normal monthly salary with commas",
+    "input": "Software engineer role, salary Rs 25,000 per month plus benefits. Interview rounds: coding test and HR.",
+    "expected": "Genuine",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-24",
+    "scenario": "\"Fees\" in a safe sentence: \"no registration fee required\"",
+    "input": "Apply for this internship. No registration fee is required at any stage. Selection is by test and interview.",
+    "expected": "Genuine",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-25",
+    "scenario": "\"Never share your OTP\" safety advice",
+    "input": "Never share your OTP or password with anyone. Our HR will interview you on the official portal.",
+    "expected": "No data-harvesting flag",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-26",
+    "scenario": "\"We do not hire without an interview\"",
+    "input": "We do not hire without an interview. Candidates attend a coding test and two interview rounds on campus.",
+    "expected": "Genuine",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-27",
+    "scenario": "Company will pay for the course (not the student)",
+    "input": "The company will sponsor your training. Apply on our careers page and attend the interview.",
+    "expected": "Genuine",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-28",
+    "scenario": "Guaranteed stipend (mild wording)",
+    "input": "Selected interns get a guaranteed stipend of Rs 15,000 per month. Apply with your resume; interview next week.",
+    "expected": "Not Fraudulent",
+    "actual": "Genuine/12 flags=[comp-4]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-30",
+    "scenario": "A single HIGH sign is now Suspicious (not Genuine)",
+    "input": "Join our team as an office assistant. Contact only on Telegram @office_jobs_desk for the interview.",
+    "expected": "Suspicious",
+    "actual": "Suspicious/22 flags=[tele-redirect-0]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-31",
+    "scenario": "Score is always 0-100 and Genuine is below 20",
+    "input": "We are hiring a Software Engineer Intern. Apply on the careers page and attend two interview rounds.",
+    "expected": "Genuine, score < 20",
+    "actual": "Genuine/0 flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-40",
+    "scenario": "cleanText removes hidden characters and tidies spaces",
+    "input": "a​b   c    d",
+    "expected": "\"ab c\\n\\nd\"",
+    "actual": "\"ab c\\n\\nd\"",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-41",
+    "scenario": "tokenizeText splits into lower-case words (also Hindi)",
+    "input": "Pay NOW नौकरी",
+    "expected": "[\"pay\",\"now\",\"नौकरी\"]",
+    "actual": "[\"pay\",\"now\",\"नौकरी\"]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-42",
+    "scenario": "extractFeatures counts words, caps ratio and exclamations",
+    "input": "HELLO WORLD!!! ok",
+    "expected": "words=3, exclamations=3, caps ratio > 0.8",
+    "actual": "{\"w\":3,\"e\":3,\"c\":0.83}",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-43",
+    "scenario": "looksLikeJobPosting: job text yes, fox sentence no, gibberish no",
+    "input": "three texts",
+    "expected": "true, false, false",
+    "actual": "[true,false,false]",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-44",
+    "scenario": "Engine speed on 10,000 characters with no spaces (old version: ~0.4 s and growing fast)",
+    "input": "10,000 x \"a\"",
+    "expected": "under 150 ms",
+    "actual": "9 ms",
+    "status": "PASS"
+  },
+  {
+    "id": "UN-45",
+    "scenario": "Engine speed on 10,000 digits with no spaces (old version: ~0.5 s and growing fast)",
+    "input": "10,000 x \"1\"",
+    "expected": "under 150 ms",
+    "actual": "9 ms",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-01",
+    "scenario": "Official company e-mail and website",
+    "input": "hr@tcs.com + nextstep.tcs.com",
+    "expected": "Verified, no flags",
+    "actual": "Verified; flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-02",
+    "scenario": "Look-alike of a real company domain (infosys-careers.com)",
+    "input": "hr@infosys-careers.com",
+    "expected": "Suspicious + CRITICAL look-alike flag",
+    "actual": "Suspicious; flags=[CRITICAL:company-lookalike-infosys-careers.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-03",
+    "scenario": "Number-for-letter look-alike (g00gle.com)",
+    "input": "recruit@g00gle.com",
+    "expected": "CRITICAL look-alike flag",
+    "actual": "Suspicious; flags=[CRITICAL:company-lookalike-g00gle.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-04",
+    "scenario": "Typing-error look-alike (microsooft.com)",
+    "input": "careers@microsooft.com",
+    "expected": "CRITICAL look-alike flag",
+    "actual": "Suspicious; flags=[CRITICAL:company-lookalike-microsooft.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-05",
+    "scenario": "Known company claimed but unrelated contact domain",
+    "input": "randomstaffing@jobsolutions.com",
+    "expected": "Unverified + MEDIUM mismatch flag (not CRITICAL)",
+    "actual": "Unverified; flags=[MEDIUM:company-mismatch-jobsolutions.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-06",
+    "scenario": "Link to a raw IP address (and not https)",
+    "input": "http://192.168.4.10/apply",
+    "expected": "Suspicious + HIGH IP flag",
+    "actual": "Suspicious; flags=[HIGH:company-ip-192.168.4.10]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-07",
+    "scenario": "Shortened link hides the destination",
+    "input": "https://bit.ly/3abcXYZ",
+    "expected": "MEDIUM shortened-link flag",
+    "actual": "Unverified; flags=[MEDIUM:company-short-bit.ly]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-08",
+    "scenario": "Application through a free form page",
+    "input": "https://forms.gle/abc123",
+    "expected": "LOW generic-page flag",
+    "actual": "Unverified; flags=[LOW:company-generic-forms.gle]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-09",
+    "scenario": "Website with a risky ending (.xyz)",
+    "input": "hiring-portal.xyz",
+    "expected": "MEDIUM risky-ending flag",
+    "actual": "Unverified; flags=[MEDIUM:company-webtld-hiring-portal.xyz]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-10",
+    "scenario": "Plain http link",
+    "input": "http://example-jobs.com",
+    "expected": "LOW not-secure flag",
+    "actual": "Unverified; flags=[LOW:company-http-example-jobs.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-11",
+    "scenario": "Disguised (punycode) domain",
+    "input": "xn--googl-fsa.com",
+    "expected": "HIGH disguised-letters flag",
+    "actual": "Suspicious; flags=[HIGH:company-idn-xn--googl-fsa.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-12",
+    "scenario": "Website name does not match the company name given",
+    "input": "Apex Media vs freejobs-today.com",
+    "expected": "MEDIUM name-mismatch flag",
+    "actual": "Unverified; flags=[MEDIUM:company-namemismatch-freejobs-today.com]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-13",
+    "scenario": "Website name matches the company name",
+    "input": "Apex Media vs apexmedia.com",
+    "expected": "No mismatch flag; website check passes",
+    "actual": "Unverified; flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-14",
+    "scenario": "No company, e-mail or website given",
+    "input": "plain text",
+    "expected": "Not enough details, no flags",
+    "actual": "Not enough details; flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-15",
+    "scenario": "Small unknown company with its own domain: no false alarm",
+    "input": "hr@pinnacle-systems.com",
+    "expected": "No flags (Unverified, not Suspicious)",
+    "actual": "Unverified; flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-16",
+    "scenario": "Ordinary word containing \"apple\" is not a look-alike",
+    "input": "hr@pineapple-farms.com",
+    "expected": "No look-alike flag",
+    "actual": "Unverified; flags=[none]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-17",
+    "scenario": "\"metadata\" in a domain is not a Meta look-alike",
+    "input": "metadata-labs / datalabs.in",
+    "expected": "No CRITICAL flag",
+    "actual": "Unverified; flags=[MEDIUM:company-mismatch-datalabs.in]",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-20",
+    "scenario": "Live check: domain does not exist",
+    "input": "lookup says NXDOMAIN",
+    "expected": "Suspicious + HIGH flag",
+    "actual": "Suspicious; company-nxdomain-new-hire-portal.com",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-21",
+    "scenario": "Live check: domain registered 12 days ago",
+    "input": "age 12 days",
+    "expected": "Suspicious + HIGH new-domain flag",
+    "actual": "Suspicious; HIGH:company-newdomain-new-hire-portal.com",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-22",
+    "scenario": "Live check: domain 100 days old",
+    "input": "age 100 days",
+    "expected": "MEDIUM flag, not Suspicious",
+    "actual": "Unverified; MEDIUM:company-younger-new-hire-portal.com",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-23",
+    "scenario": "Live check: domain 6+ years old",
+    "input": "age 2500 days",
+    "expected": "Passes, no new flags",
+    "actual": "Unverified; flags=0; onlineChecks=completed",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-24",
+    "scenario": "Live lookup fails: company is NOT penalised",
+    "input": "lookup throws",
+    "expected": "No new flags; onlineChecks=unavailable",
+    "actual": "flags=0; onlineChecks=unavailable",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-25",
+    "scenario": "Live lookup returns nothing: company is NOT penalised",
+    "input": "unknown / unknown",
+    "expected": "No new flags",
+    "actual": "flags=0; onlineChecks=unavailable",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-26",
+    "scenario": "Official and free-mail domains are never looked up",
+    "input": "hr@tcs.com, user@gmail.com",
+    "expected": "lookup called 0 times",
+    "actual": "0 call(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-27",
+    "scenario": "Live checks can be switched off",
+    "input": "enabled=false",
+    "expected": "lookup not called",
+    "actual": "0 call(s)",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-28",
+    "scenario": "Real network lookup finishes within its time limit (any network state)",
+    "input": "real DNS / RDAP call",
+    "expected": "Returns a valid result in under 9 s",
+    "actual": "unavailable; 43 ms; flags=0",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-29",
+    "scenario": "Live lookup never calls a domain \"non-existent\" when DNS itself is not working",
+    "input": "DNS control lookup (example.com) works here: false",
+    "expected": "resolves=null (cannot tell, no penalty)",
+    "actual": "resolves=null",
+    "status": "PASS"
+  },
+  {
+    "id": "CV-30",
+    "scenario": "Dataset evaluation counts correct answers honestly",
+    "input": "3 items, one deliberately mislabelled",
+    "expected": "total 3, correct 2, accuracy 66.7, 1 mismatch",
+    "actual": "total 3, correct 2, accuracy 66.7, mismatches 1",
+    "status": "PASS"
+  }
+]

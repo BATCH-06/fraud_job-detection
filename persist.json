@@ -1,0 +1,8 @@
+{
+  "loginStatus": 200,
+  "oldTokenStatus": 200,
+  "before": 1,
+  "after": 1,
+  "found": true,
+  "badFound": false
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix AI Fake Job \u0026 Internship Scam Detection System",
+  "description": "NLP and AI-powered scam analysis system for students to detect fraudulent job offers, fake internships, and recruitment scams.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
